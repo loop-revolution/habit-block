@@ -19,9 +19,7 @@ impl HabitBlock {
 		_context: &Context,
 		_user_id: i32,
 	) -> Result<CreationObject, LoopError> {
-		let header = TextComponent::heading("New Habit");
-
-		let name_input = InputComponent {
+		let header = InputComponent {
 			label: Some("Summary".to_string()),
 			name: Some("NAME".to_string()),
 			size: Some(InputSize::Large),
@@ -69,7 +67,6 @@ impl HabitBlock {
 		desc_section.push(desc_input);
 
 		let mut main = StackComponent::vertical();
-		main.push(name_input);
 		// main.push(impact_section);
 		main.push(desc_section);
 
