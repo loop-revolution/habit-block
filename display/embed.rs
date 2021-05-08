@@ -9,9 +9,10 @@ use block_tools::{
 		atomic::text::TextComponent,
 		interact::link::LinkComponent,
 		layout::{
-			card::CardComponent,
+			card::{CardComponent, DetachedMenu},
 			stack::{AlignXOptions, StackComponent},
 		},
+		menus::menu::MenuComponent,
 		DisplayComponent,
 	},
 	models::Block,
@@ -59,10 +60,15 @@ impl HabitBlock {
 			middle_col.push(desc)
 		}
 
+		let mut detached_menu = None;
+
 		if let Some(user_id) = user_id {
 			if has_perm_level(user_id, block, PermLevel::Edit) {
 				let buttons_stack = Self::buttons_stack(impact, block.id);
 				right_col.push(buttons_stack);
+				let mut menu = MenuComponent::from_block(block, user_id);
+				menu.load_comments(conn)?;
+				detached_menu = Some(DetachedMenu::bottom_right(menu));
 			}
 		}
 
@@ -77,6 +83,7 @@ impl HabitBlock {
 
 		Ok(CardComponent {
 			color: block.color.clone(),
+			detached_menu,
 			..CardComponent::new(content)
 		}
 		.into())
