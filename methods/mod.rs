@@ -5,6 +5,7 @@ use block_tools::{
 	BlockError, LoopError,
 };
 mod create;
+mod general_perm_update;
 mod minus;
 mod plus;
 mod visibility_update;

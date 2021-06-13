@@ -70,4 +70,13 @@ impl BlockType for HabitBlock {
 	fn visibility_update(context: &Context, block_id: i64, public: bool) -> Result<(), LoopError> {
 		Self::handle_visibility_update(context, block_id, public)
 	}
+	fn general_perm_update(
+		context: &Context,
+		block_id: i64,
+		perm_full: Vec<i32>,
+		perm_edit: Vec<i32>,
+		perm_view: Vec<i32>,
+	) -> Result<(), LoopError> {
+		Self::handle_general_perm_update(context, block_id, perm_full, perm_edit, perm_view)
+	}
 }
